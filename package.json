@@ -14,8 +14,10 @@
 		"lintfix": "eslint . --fix && prettier --write --list-different ."
 	},
 	"dependencies": {
+		"@nuxt/ui": "^2.18.4",
 		"nuxt": "^3.12.4",
-		"vue": "latest"
+		"vue": "latest",
+		"yup": "^1.4.0"
 	},
 	"devDependencies": {
 		"@nuxt/eslint": "^0.5.0",

@@ -9,7 +9,7 @@ definePageMeta({
 
 const schema = object({
 	email: string().email("Invalid email").required("Email address is required"),
-	password: string().min(8, "Must be at least 8 characters").required("Password is required"),
+	password: string().min(6, "Must be at least 6 characters").required("Password is required"),
 });
 
 type Schema = InferType<typeof schema>;
@@ -17,7 +17,8 @@ type Schema = InferType<typeof schema>;
 const form = reactive({ email: "", password: "" });
 const requestStatus = ref<RequestStatus>("idle");
 
-const handleLogin = (event: FormSubmitEvent<Schema>) => {
+const handleLogin = async (event: FormSubmitEvent<Schema>) => {
+	requestStatus.value = "pending";
 	console.log("event >>>>>", event.data);
 };
 </script>
@@ -46,7 +47,14 @@ const handleLogin = (event: FormSubmitEvent<Schema>) => {
 					size="lg"
 					icon="i-heroicons-lock-closed" />
 			</UFormGroup>
-			<UButton type="submit" size="xl" block>Login</UButton>
+			<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Login</UButton>
+
+			<p class="text-sm font-medium text-gray-600">
+				Don't have an account?
+				<nuxt-link :to="{ name: 'auth-register' }" class="text-royal-blue-500 font-semibold">
+					Register
+				</nuxt-link>
+			</p>
 		</UForm>
 	</div>
 </template>

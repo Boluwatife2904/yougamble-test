@@ -5,6 +5,7 @@ import type { RequestStatus } from "~/types";
 
 definePageMeta({
 	layout: "auth",
+	middleware: "guest",
 });
 
 const client = useSupabaseClient();

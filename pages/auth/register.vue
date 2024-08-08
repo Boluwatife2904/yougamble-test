@@ -10,16 +10,15 @@ definePageMeta({
 const client = useSupabaseClient();
 const toast = useToast();
 
+const form = reactive({ displayName: "", email: "", password: "" });
+const requestStatus = ref<RequestStatus>("idle");
+
 const schema = object({
 	displayName: string().required("Display name is required"),
 	email: string().email("Invalid email").required("Email address is required"),
 	password: string().min(6, "Must be at least 6 characters").required("Password is required"),
 });
-
 type Schema = InferType<typeof schema>;
-
-const form = reactive({ displayName: "", email: "", password: "" });
-const requestStatus = ref<RequestStatus>("idle");
 
 const handleRegister = async (event: FormSubmitEvent<Schema>) => {
 	requestStatus.value = "pending";

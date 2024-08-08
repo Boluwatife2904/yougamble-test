@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { IMessage } from "~/types";
+import type { IMessage, IMessageWithProfile, IProfile } from "~/types";
 
 definePageMeta({
 	middleware: "auth",
+});
+useSeoMeta({
+	title: "Chat | Dashboard",
 });
 
 const client = useSupabaseClient();
@@ -18,7 +21,7 @@ const { data: messages } = await useAsyncData("messages", async () => {
 	if (error) {
 		throw new Error(error.message);
 	}
-	return data as unknown as IMessage[];
+	return data as unknown as IMessageWithProfile[];
 });
 
 const signOut = async () => {
@@ -27,24 +30,22 @@ const signOut = async () => {
 };
 
 const scrollToBottom = () => {
-	console.log(messagesRef.value);
 	if (messagesRef.value) {
 		messagesRef.value.scrollTop = messagesRef.value.scrollHeight;
 	}
 };
 
-const handleNewMessage = async (payload) => {
+const handleNewMessage = async (payload: { new: IMessage }) => {
 	if (payload.new) {
 		const { data } = await client.from("profiles").select("*").eq("id", payload.new.user_id).single();
 		if (data) {
-			messages.value?.push({ ...payload.new, profiles: { ...data } });
+			messages.value?.push({ ...payload.new, profiles: { ...(data as IProfile) } });
 			await nextTick();
 			scrollToBottom();
 		}
 	}
 };
 
-// Subscribe to the messages database
 client
 	.channel("messages")
 	.on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, handleNewMessage)
@@ -81,7 +82,9 @@ onMounted(() => {
 					<ChatReceived v-else :message />
 				</template>
 			</ul>
+
 			<CommonEmptyState v-else class="min-h-[500px]" />
+
 			<ChatMessageInput />
 		</div>
 	</div>

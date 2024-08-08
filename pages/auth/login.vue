@@ -7,6 +7,9 @@ definePageMeta({
 	layout: "auth",
 	middleware: "guest",
 });
+useSeoMeta({
+	title: "Chat | Login",
+});
 
 const client = useSupabaseClient();
 const toast = useToast();
@@ -28,6 +31,12 @@ const handleLogin = async (event: FormSubmitEvent<Schema>) => {
 	if (error) {
 		toast.add({ title: "Error", description: error.message, color: "red", icon: "i-heroicons-exclamation-circle" });
 	} else {
+		toast.add({
+			title: "Success",
+			description: "Welcome back!",
+			color: "royal-green",
+			icon: "i-heroicons-check-badge",
+		});
 		navigateTo({ name: "chat" }, { replace: true });
 	}
 
@@ -45,30 +54,25 @@ const handleLogin = async (event: FormSubmitEvent<Schema>) => {
 					placeholder="johndoe@gmail.com"
 					label="Emaill"
 					class="w-full"
-					size="lg"
+					size="xl"
 					icon="i-heroicons-envelope" />
 			</UFormGroup>
 
 			<UFormGroup label="Password" class="w-full space-y-3" name="password">
 				<UInput
 					v-model="form.password"
+					type="password"
 					placeholder="**********"
 					class="w-full"
-					size="lg"
+					size="xl"
 					icon="i-heroicons-lock-closed" />
 			</UFormGroup>
 
-			<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Login</UButton>
+			<UButton type="submit" size="xl" class="min-h-14" block :loading="requestStatus === 'pending'">
+				Login
+			</UButton>
 
-			<p class="text-sm font-medium text-gray-600 flex flex-wrap items-center justify-center gap-1">
-				Don't have an account?
-				<nuxt-link
-					:to="{ name: 'auth-register' }"
-					class="text-royal-green-500 font-semibold gap-1 flex items-center">
-					Register
-					<UIcon name="i-heroicons-arrow-long-right" />
-				</nuxt-link>
-			</p>
+			<AuthLink route-name="auth-register" route-title="Register" text="Don't have an account?" />
 		</UForm>
 	</div>
 </template>

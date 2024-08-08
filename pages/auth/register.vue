@@ -7,6 +7,9 @@ definePageMeta({
 	layout: "auth",
 	middleware: "guest",
 });
+useSeoMeta({
+	title: "Chat | Register",
+});
 
 const client = useSupabaseClient();
 const toast = useToast();
@@ -55,36 +58,33 @@ const handleRegister = async (event: FormSubmitEvent<Schema>) => {
 						v-model="form.displayName"
 						placeholder="John Doe"
 						class="w-full"
-						size="lg"
+						size="xl"
 						icon="i-heroicons-user" />
 				</UFormGroup>
+
 				<UFormGroup label="Email address" class="w-full space-y-3" name="email">
 					<UInput
 						v-model="form.email"
 						placeholder="johndoe@gmail.com"
 						class="w-full"
-						size="lg"
+						size="xl"
 						icon="i-heroicons-envelope" />
 				</UFormGroup>
+
 				<UFormGroup label="Password" class="w-full space-y-3" name="password">
 					<UInput
 						v-model="form.password"
+						type="password"
 						placeholder="**********"
 						class="w-full"
-						size="lg"
+						size="xl"
 						icon="i-heroicons-lock-closed" />
 				</UFormGroup>
-				<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Register</UButton>
+
+				<UButton type="submit" size="xl" class="min-h-14" block :loading="requestStatus === 'pending'">Register</UButton>
 			</UForm>
-			<p class="text-sm font-medium text-gray-600 text-center flex-wrap flex items-center justify-center gap-1">
-				Already have an account?
-				<nuxt-link
-					:to="{ name: 'auth-login' }"
-					class="text-royal-green-500 font-semibold inline-flex items-center gap-1">
-					Login
-					<UIcon name="i-heroicons-arrow-long-right" />
-				</nuxt-link>
-			</p>
+
+			<AuthLink route-name="auth-login" route-title="Login" text="Already have an account?" />
 		</div>
 	</div>
 </template>

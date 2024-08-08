@@ -11,5 +11,8 @@ export interface IMessage {
 	user_id: string;
 	text: string;
 	created_at: string;
+}
+
+export interface IMessageWithProfile extends IMessage {
 	profiles: IProfile;
 }

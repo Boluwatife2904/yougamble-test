@@ -36,12 +36,9 @@ const handleLogin = async (event: FormSubmitEvent<Schema>) => {
 </script>
 
 <template>
-	<div class="w-full">
-		<UForm
-			:state="form"
-			:schema
-			class="flex flex-col gap-6 items-center justify-center max-w-[500px] mx-auto shadow bg-white px-10 py-8 rounded-xl"
-			@submit="handleLogin">
+	<div class="w-full space-y-10">
+		<AuthHeader title="Welcome Back!" description="Login into your account" />
+		<UForm :state="form" :schema class="space-y-6" @submit="handleLogin">
 			<UFormGroup label="Email address" class="w-full space-y-3" name="email">
 				<UInput
 					v-model="form.email"
@@ -63,10 +60,13 @@ const handleLogin = async (event: FormSubmitEvent<Schema>) => {
 
 			<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Login</UButton>
 
-			<p class="text-sm font-medium text-gray-600">
+			<p class="text-sm font-medium text-gray-600 flex flex-wrap items-center justify-center gap-1">
 				Don't have an account?
-				<nuxt-link :to="{ name: 'auth-register' }" class="text-royal-blue-500 font-semibold">
+				<nuxt-link
+					:to="{ name: 'auth-register' }"
+					class="text-royal-green-500 font-semibold gap-1 flex items-center">
 					Register
+					<UIcon name="i-heroicons-arrow-long-right" />
 				</nuxt-link>
 			</p>
 		</UForm>

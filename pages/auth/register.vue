@@ -42,38 +42,50 @@ const handleRegister = async (event: FormSubmitEvent<Schema>) => {
 </script>
 
 <template>
-	<div class="w-full max-w-[500px] mx-auto shadow space-y-8 rounded-xl bg-white px-10 py-8">
-		<UForm :state="form" :schema class="flex flex-col gap-6 items-center justify-center" @submit="handleRegister">
-			<UFormGroup label="Display Name" class="w-full space-y-3" name="displayName">
-				<UInput
-					v-model="form.displayName"
-					placeholder="John Doe"
-					class="w-full"
-					size="lg"
-					icon="i-heroicons-user" />
-			</UFormGroup>
-			<UFormGroup label="Email address" class="w-full space-y-3" name="email">
-				<UInput
-					v-model="form.email"
-					placeholder="johndoe@gmail.com"
-					class="w-full"
-					size="lg"
-					icon="i-heroicons-envelope" />
-			</UFormGroup>
-			<UFormGroup label="Password" class="w-full space-y-3" name="password">
-				<UInput
-					v-model="form.password"
-					placeholder="**********"
-					class="w-full"
-					size="lg"
-					icon="i-heroicons-lock-closed" />
-			</UFormGroup>
-			<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Register</UButton>
-		</UForm>
-		<p class="text-sm font-medium text-gray-600 text-center">
-			Already have an account?
-			<nuxt-link :to="{ name: 'auth-login' }" class="text-royal-blue-500 font-semibold">Login</nuxt-link>
-		</p>
+	<div class="space-y-10">
+		<AuthHeader title="Create an account" description="Sign up to continue" />
+		<div class="w-full space-y-8">
+			<UForm
+				:state="form"
+				:schema
+				class="flex flex-col gap-6 items-center justify-center"
+				@submit="handleRegister">
+				<UFormGroup label="Display Name" class="w-full space-y-3" name="displayName">
+					<UInput
+						v-model="form.displayName"
+						placeholder="John Doe"
+						class="w-full"
+						size="lg"
+						icon="i-heroicons-user" />
+				</UFormGroup>
+				<UFormGroup label="Email address" class="w-full space-y-3" name="email">
+					<UInput
+						v-model="form.email"
+						placeholder="johndoe@gmail.com"
+						class="w-full"
+						size="lg"
+						icon="i-heroicons-envelope" />
+				</UFormGroup>
+				<UFormGroup label="Password" class="w-full space-y-3" name="password">
+					<UInput
+						v-model="form.password"
+						placeholder="**********"
+						class="w-full"
+						size="lg"
+						icon="i-heroicons-lock-closed" />
+				</UFormGroup>
+				<UButton type="submit" size="xl" block :loading="requestStatus === 'pending'">Register</UButton>
+			</UForm>
+			<p class="text-sm font-medium text-gray-600 text-center flex-wrap flex items-center justify-center gap-1">
+				Already have an account?
+				<nuxt-link
+					:to="{ name: 'auth-login' }"
+					class="text-royal-green-500 font-semibold inline-flex items-center gap-1">
+					Login
+					<UIcon name="i-heroicons-arrow-long-right" />
+				</nuxt-link>
+			</p>
+		</div>
 	</div>
 </template>
 

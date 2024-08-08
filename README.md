@@ -39,15 +39,15 @@ You can follow this [guide](https://supabase.com/docs/guides/cli/local-developme
 
 Profiles: This image is a representation of the schema for user profiles
 
-![Profiles Schema]('readme-images/profiles-schema.png')
+![Profiles Schema](readme-images/profiles-schema.png)
 
-![Profiles RLS]('readme-images/profiles-rls.png')
+![Profiles RLS](readme-images/profiles-rls.png)
 
 Messages: This image is a representation of the schema for messages table
 
-![Messages Schema]('readme-images/messages-schema.png')
+![Messages Schema](readme-images/messages-schema.png)
 
-![Messages RLS]('readme-images/messages-rls.png')
+![Messages RLS](readme-images/messages-rls.png)
 
 #### Create functions and triggers
 

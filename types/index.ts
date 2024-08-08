@@ -1,8 +1,15 @@
 export type RequestStatus = "idle" | "pending" | "success" | "failed";
 
+export interface IProfile {
+	id: string;
+	avatar_url: "";
+	display_name: "";
+}
+
 export interface IMessage {
 	id: string;
-	sender_id: string;
+	user_id: string;
 	text: string;
 	created_at: string;
+	profiles: IProfile;
 }

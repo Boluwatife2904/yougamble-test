@@ -28,12 +28,12 @@ const handleRegister = async (event: FormSubmitEvent<Schema>) => {
 		email: event.data.email,
 		password: event.data.password,
 		options: {
-			data: { displayName: event.data.displayName },
+			data: { display_name: event.data.displayName },
 		},
 	});
 
 	if (error) {
-		toast.add({ title: "Error", description: error.message, color: "red" });
+		toast.add({ title: "Error", description: error.message, color: "red", icon: "i-heroicons-exclamation-circle" });
 	} else {
 		navigateTo({ name: "chat" }, { replace: true });
 	}

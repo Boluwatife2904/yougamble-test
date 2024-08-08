@@ -26,7 +26,7 @@ const handleLogin = async (event: FormSubmitEvent<Schema>) => {
 	const { error } = await client.auth.signInWithPassword({ ...event.data });
 
 	if (error) {
-		toast.add({ title: "Error", description: error.message, color: "red" });
+		toast.add({ title: "Error", description: error.message, color: "red", icon: "i-heroicons-exclamation-circle" });
 	} else {
 		navigateTo({ name: "chat" }, { replace: true });
 	}
